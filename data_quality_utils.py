@@ -9,7 +9,7 @@ def get_and_extract_zip(zip_url):
         z = zipfile.ZipFile(io.BytesIO(r.content))
         z.extractall(dqconfig.temp_data_folder)
     except:
-        print('Error processing ZIP archive: {0}'.format(zip_url))
+        print('>> Error processing ZIP archive: {0}'.format(zip_url))
         pass
 
 def get_and_extract_gzip(zip_url, output_file):
@@ -19,7 +19,7 @@ def get_and_extract_gzip(zip_url, output_file):
         with open(dqconfig.temp_data_folder + gzip_name, 'wb') as f:
             f.write(r.content)
     except:
-        print('Error downloading GZIP archive: {0}'.format(gzip_name))
+        print('>> Error downloading GZIP archive: {0}'.format(gzip_name))
         pass
     
     try:
@@ -27,7 +27,7 @@ def get_and_extract_gzip(zip_url, output_file):
             with open(output_file, 'wb') as f_out:
                 shutil.copyfileobj(f_in, f_out)
     except:
-        print('Error decoding GZIP archive: {0}'.format(gzip_name))
+        print('>> Error decoding GZIP archive: {0}'.format(gzip_name))
         pass
             
 def fetch_zipped_csv(zip_url, expected_file):
@@ -43,7 +43,7 @@ def fetch_zipped_csv(zip_url, expected_file):
     try:
         df = pd.read_csv(expected_file, encoding=dqconfig.encoding_type)
     except:
-        print('Error reading expected file: {0}'.format(expected_file))
+        print('>> Error reading expected file: {0}'.format(expected_file))
         pass
 
     return df

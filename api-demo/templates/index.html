@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        .dq-alert-box {
+            margin-top: 5px;
+        }
+        .dq-label {
+            font-weight: bold;
+        }
+        .dq-results {
+            padding-bottom: 20px;
+        }
+        .dq-icon-no-point-bg {
+            color: #d1d1d1;
+        }
+        .dq-icon-black {
+            color: #666666;
+        }
+        .dq-icon-white {
+            color: #ffffff;
+        }
+        .dq-icon-metadata-bg {
+            color: #2e74b6
+        }
+        .dq-icon-resource-bg {
+            color: #6f30a0
+        }
+    </style>
+
+    <script src="https://kit.fontawesome.com/57fe12482d.js" crossorigin="anonymous"></script>
+
+    <title>In-line Data Quality Validation Demo</title>
+</head>
+
+<body>
+    <div class="container" style="margin-top: 20px;">
+        <h1>In-line Data Quality Validation Demo</h1>
+        <form id="publish-form">
+            <div class="form-group" id="readability-group">
+                <label for="readabilityInput">Description</label>
+                <input type="text" class="form-control" name="description" id="readabilityInput" placeholder="Enter a description">
+            </div>
+            <div class="form-group" id="department-group">
+                <label for="departmentInput">Department</label>
+                <input type="text" class="form-control" name="department" id="departmentInput" placeholder="Enter a department">
+            </div>
+            <div class="form-group" id="email-group">
+                <label for="emailInput">Email</label>
+                <input type="email" class="form-control" name="maintainer_email" id="emailInput" placeholder="Enter an email address">
+            </div>
+            <div class="form-group" id="file-type-group">
+                <label for="fileTypeInput">File Type</label>
+                <input type="text" class="form-control" name="file_type" id="fileTypeInput" placeholder="CSV | XLS | JSON | XML | TXT | ...">
+            </div>
+            <div class="form-group" id="file-group">
+                <label for="fileLinkInput">File Link</label>
+                <input type="link" class="form-control" name="file_link" id="fileLinkInput" placeholder="https://path.to.your/file.csv">
+            </div>
+
+            <div class="dq-results">
+                <h3>Results</h3>
+                <span class="fa-stack fa-2x" title="Connected">
+                    <i id="connected-icon-bg" class="fas fa-certificate fa-stack-2x dq-icon-no-point-bg"></i>
+                    <i id="connected-icon" class="fas fa-at fa-stack-1x dq-icon-black"></i>
+                  </span>
+                  <span class="fa-stack fa-2x" title="Communicator">
+                    <i id="communicator-icon-bg" class="fas fa-certificate fa-stack-2x dq-icon-no-point-bg"></i>
+                    <i id="communicator-icon" class="fas fa-bullhorn fa-stack-1x dq-icon-black"></i>
+                  </span>
+                  <span class="fa-stack fa-2x" title="Participation">
+                    <i id="participation-icon-bg" class="fas fa-certificate fa-stack-2x dq-icon-no-point-bg"></i>
+                    <i id="participation-icon" class="fas fa-award fa-stack-1x dq-icon-black"></i>
+                  </span>
+                  <span class="fa-stack fa-2x" title="Tidy">
+                    <i id="tidy-icon-bg" class="fas fa-certificate fa-stack-2x dq-icon-no-point-bg"></i>
+                    <i id="tidy-icon" class="fas fa-clipboard-check fa-stack-1x dq-icon-black"></i>
+                  </span>
+                  <span class="fa-stack fa-2x" title="Honest">
+                    <i id="honest-icon-bg" class="fas fa-certificate fa-stack-2x dq-icon-no-point-bg"></i>
+                    <i id="honest-icon" class="fas fa-balance-scale fa-stack-1x dq-icon-black"></i>
+                  </span>
+                  <span class="fa-stack fa-2x" title="International">
+                    <i id="international-icon-bg" class="fas fa-certificate fa-stack-2x dq-icon-no-point-bg"></i>
+                    <i id="international-icon" class="fas fa-globe fa-stack-1x dq-icon-black"></i>
+                  </span>
+            </div>
+
+            <button type="submit" id="publish-form-submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#publish-form").submit(function(e) {
+                e.preventDefault();
+                var form = $(this);
+                var url = "/samplevalidate/"
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: form.serialize(),
+                    success: function(data) {
+                        clearAlertBoxes();
+
+                        if (data.valid_readability) {
+                            pushAlertBox("readability-group", "success", "Your readability score of " + data.readability_score + " is at or below our target readability of grade 8.  Well done!");
+                            colorizeIcons("communicator", true, "metadata");
+                        } else {
+                            pushAlertBox("readability-group", "error", "Your readability score of " + data.readability_score + " is above our target readability of grade 8.  Try simplifying your description into shorter sentences using simpler words.");
+                            colorizeIcons("communicator", false, "metadata");
+                        }
+
+                        pushAlertBox("department-group", "success", "Looks good!");
+
+                        if (data.is_email_valid) {
+                            pushAlertBox("email-group", "success", "Looks good!");
+                            colorizeIcons("connected", true, "metadata");
+                        } else {
+                            if (data.other_dept_using_tbs_open) {
+                                msg = "You appear to be using the open@tbs email address but you are from a different department.  Please consider setting up your own inbox to handle requests from the open data community."
+                            } else {
+                                msg = "There is likely a problem with the format.  Please try again."
+                            }
+                            pushAlertBox("email-group", "error", "There was a problem with the email address you provided.  " + msg);
+                            colorizeIcons("connected", false, "metadata");
+                        }
+
+                        if (data.valid_file_type) {
+                            pushAlertBox("file-type-group", "success", "Looks good!");
+                            colorizeIcons("honest", true, "resource");
+                        } else {
+                            pushAlertBox("file-type-group", "error", "The file type you specified (" + data.user_file_type + ") does not match the file at the link provided (" + data.link_file_type + ").  Please try again.");
+                            colorizeIcons("honest", false, "resource");
+                        }
+
+                        prepFileErrorReport(data);
+
+                        (data.valid_url) ? colorizeIcons("participation", true, "resource") : colorizeIcons("participation", false, "resource");
+                        (data.valid_encoding) ? colorizeIcons("international", true, "resource") : colorizeIcons("international", false, "resource");
+                        (data.valid_format) ? colorizeIcons("tidy", true, "resource") : colorizeIcons("tidy", false, "resource");
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                })
+            });
+        });
+
+        function clearAlertBoxes() {
+            $("div.dq-alert-box").remove();
+        }
+
+        function colorizeIcons(icon_prefix, is_valid, dq_type) {
+            $("#" + icon_prefix + "-icon-bg").attr('class', function(i, c){
+                return c.replace(/(^|\s)dq-icon\S+/g, '');
+            });
+            $("#" + icon_prefix + "-icon").attr('class', function(i, c){
+                return c.replace(/(^|\s)dq-icon\S+/g, '');
+            });
+            if (is_valid) {
+                $("#" + icon_prefix + "-icon-bg").addClass("dq-icon-" + dq_type + "-bg");
+                $("#" + icon_prefix + "-icon").addClass("dq-icon-white");
+            } else {
+                $("#" + icon_prefix + "-icon-bg").addClass("dq-icon-no-point-bg");
+                $("#" + icon_prefix + "-icon").addClass("dq-icon-black");
+            }
+        }
+
+        function convertBoolToValidText(bool) {
+            return (bool) ? 'Valid' : 'Invalid';
+        }
+
+        function prepFileErrorReport(data) {
+            var html_string = '';
+            var error_count = data.error_count;
+            html_string += '<ul>';
+            html_string += '<li><span class="dq-label">URL: </span>' + convertBoolToValidText(data.valid_url) + '</li>';
+            html_string += '<li><span class="dq-label">Encoding: </span>' + data.link_encoding + ' (' + convertBoolToValidText(data.valid_encoding) + ')</li>';
+            html_string += '<li><span class="dq-label">Format: </span>' + convertBoolToValidText(data.valid_format) + '</li>';
+            if (error_count > 0) {
+                html_string += '<li><span class="dq-label">Error Count: </span>' + data.error_count + '</li>';
+                if (data.error_details.length > 0) {
+                    html_string += '<ol>';
+                    for (var i = 0; i < data.error_details.length; i++) {
+                        html_string += '<li>' + data.error_details[i].message + '</li>';
+                    }
+                    html_string += '</ol>';
+                }
+            }
+            //html_string += '<li><span class="dq-label"></span></li>';
+            html_string += '</ul>';
+            alert_box_state = (error_count > 0) ? "error" : "success";
+            pushAlertBox("file-group", alert_box_state, html_string);
+        }
+
+        function pushAlertBox(container_id, state, message) {
+            var class_list = 'dq-alert-box alert ';
+            var state_class = (state == "error") ? 'alert-danger' : 'alert-success';
+            class_list += state_class;
+            var alert_box = '<div class="' + class_list + '">' + message + '</div>';
+            $("#"+container_id).append(alert_box)
+        }
+    </script>
+</body>
+
+</html>

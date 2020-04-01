@@ -4,9 +4,11 @@ import json
 import pandas as pd
 import data_quality_config as dqconfig
 import data_quality_utils as dqutils
+import ssl
 
 """ Non-Spatial dataset analysis on the open data registry """
 
+ssl._create_default_https_context = ssl._create_unverified_context
 output_file = dqconfig.top200_file
 output_size = 200
 

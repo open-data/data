@@ -8,7 +8,7 @@ remove_temp_data = False
 encoding_type = 'utf-8'
 
 supporting_documentation_resource_types = \
-    ['guide', 'terminology', 'faq', 'publication', 'plan']
+    ['guide', 'terminology', 'faq', 'publication', 'plan', 'specification']
 
 frequency_automatic_point = \
     ['as_needed', 'continual', 'irregular', 'not_planned', 'unknown']
@@ -34,6 +34,23 @@ frequency_lookup = {
     'P4Y': 2281
 }
 
+registry_formats = [
+    'zip',
+    'csv',
+    'xls',
+    'json',
+    'xml',
+    'txt',
+    'ods',
+    'sql'
+]
+
+bad_http_status = [
+    '404',
+    '500',
+    '503'
+]
+
 snapshot_end_date = datetime(2019, 12, 31, 0, 0, 0)
 
 # Datasets
@@ -56,5 +73,5 @@ openness_file = temp_data_folder + 'openness-details.csv'
 user_ratings_file = 'https://open.canada.ca/sites/default/files/dataset-ratings.csv'
 
 # Processed files
-#top200_file = 'TopNonSpatialDatasets.csv'
+#top200_file = 'Top5NonSpatialDatasets.csv'
 top200_file = 'Top200NonSpatialDatasets.csv'
