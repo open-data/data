@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: tbsdq-pkg-msisktbs
+Version: 0.0.1
+Summary: A library for calculating specific data quality metrics on open data
+Home-page: https://github.com/msisktbs/data
+Author: Mike Sisk
+Author-email: Mike.Sisk@tbs-sct.gc.ca
+License: UNKNOWN
+Description: # TBS DQ
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
