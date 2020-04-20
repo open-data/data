@@ -5,3 +5,4 @@ __pycache__/*
 venv
 venv/*
 api-demo/.vscode/*
+temp_data
