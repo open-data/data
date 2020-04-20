@@ -13,6 +13,13 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/msisktbs/data",
     packages=setuptools.find_packages(),
+    install_requires=[
+        'goodtables>=2.4.2',
+        'tqdm>=4.43.0',
+        'pandas>=0.25.1',
+        'textstat>=0.6.0'
+        'validate_email>=1.3'
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
