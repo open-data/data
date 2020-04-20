@@ -1,5 +1,5 @@
 from datetime import datetime
-from tbsdq import configuration as dqconfig
+from tbsdq.tbsdq import configuration as dqconfig
 
 snapshot_end_date = datetime(2019, 12, 31, 0, 0, 0)
 

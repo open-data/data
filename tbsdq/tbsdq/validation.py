@@ -1,7 +1,7 @@
 from validate_email import validate_email
 from datetime import datetime
 from textstat.textstat import textstat
-from tbsdq import configuration as dqconfig
+from tbsdq.tbsdq import configuration as dqconfig
 
 # Inspect the provided maintainer email and don't count the default @tbs email 
 # addresses unless the owning organization is actually TBS

@@ -1,9 +1,10 @@
 import sys, shutil, argparse, json
 import pandas as pd
-from tbsdq import data_quality as dq
-from tbsdq import configuration as dqconfig
+from tbsdq.tbsdq import data_quality as dq
+from tbsdq.tbsdq import configuration as dqconfig
 from topN import build_dataset as topnbuild
 from topN import utilities as topnutils
+from topN import configuration as topnconfig
 
 """
 description_en
@@ -66,7 +67,7 @@ if validation_mode == 'topN':
     except:
         sys.exit('>> An error occured trying to read or build the Top N dataset.  Exiting')
 
-    df_quality = dq.run_topN_validation(df_topN)
+    df_quality = dq.run_topN_validation(df_topN, topnconfig.catalogue_zip_file, topnconfig.catalogue_file)
 
     # Write the final dataframe to CSV
     print('Finalizing Output File')

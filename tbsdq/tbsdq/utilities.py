@@ -1,7 +1,7 @@
 import pandas as pd
 import shutil
 import requests, zipfile, gzip, io, json
-from tbsdq import configuration as dqconfig
+from tbsdq.tbsdq import configuration as dqconfig
 
 def get_and_extract_zip(zip_url):
     try:

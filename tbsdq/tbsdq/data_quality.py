@@ -3,10 +3,9 @@ import pandas as pd
 from pandas import Panel
 from goodtables import validate
 from tqdm.auto import tqdm
-from tbsdq import configuration as dqconfig
-from tbsdq import utilities as dqutils
-from tbsdq import validation as dqvalidate
-from topN import configuration as topnconfig
+from tbsdq.tbsdq import configuration as dqconfig
+from tbsdq.tbsdq import utilities as dqutils
+from tbsdq.tbsdq import validation as dqvalidate
 
 
 """ 
@@ -38,10 +37,10 @@ def run_common_validation(df_quality):
 
     return df_quality
 
-def run_topN_validation(df_target):
+def run_topN_validation(df_target, cat_zip, cat_file):
     # Load the JSONL Catalogue and parse out the information we need
     print('Loading the JSONL Catalogue')
-    df_catalogue = dqutils.fetch_and_parse_catalogue(topnconfig.catalogue_zip_file, topnconfig.catalogue_file)
+    df_catalogue = dqutils.fetch_and_parse_catalogue(cat_zip, cat_file)
 
     # Filter the catalogue down to our top 200
     print('Processing the Top N Non-Spatial Datasets')
