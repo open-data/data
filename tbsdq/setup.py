@@ -17,7 +17,7 @@ setuptools.setup(
         'goodtables>=2.4.2',
         'tqdm>=4.43.0',
         'pandas>=0.25.1',
-        'textstat>=0.6.0'
+        'textstat>=0.6.0',
         'validate_email>=1.3'
     ],
     classifiers=[
