@@ -1,8 +1,8 @@
 import shutil, ssl, json
 import requests, zipfile, gzip, io
 import pandas as pd
-from tbsdq.tbsdq import utilities as dqutils
-from tbsdq.tbsdq import configuration as dqconfig
+from tbsdq import utilities as dqutils
+from tbsdq import configuration as dqconfig
 from topN import configuration as topnconfig
 
 

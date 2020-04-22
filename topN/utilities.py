@@ -2,7 +2,7 @@
 import pandas as pd
 from topN import build_dataset as topnbuild
 from topN import configuration as topnconfig
-from tbsdq.tbsdq import configuration as dqconfig
+from tbsdq import configuration as dqconfig
 
 # Load the Top 200 Non Spatial file.  Exit with an error if we can't find or build it. 
 def get_top_N_non_spatial():
