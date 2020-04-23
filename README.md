@@ -59,5 +59,3 @@ This project's initial purpose was to evaluate data quality metrics on the Top 2
 
 ## API & Web Form
 The `api-demo` folder contains a simple web form and python API to deliver data quality results in the browser.  It has its own list of requirements, so you will need to create a separate virtual environment under the api-demo directory and install the requirements from the /api-demo/requirements.txt file.  You'll find additional documentation in that folder.
-
-
