@@ -1,8 +1,7 @@
 from flask import Flask, render_template
 from flask_restful import Resource, Api, reqparse
-from textstat.textstat import textstat
-from validate_email import validate_email
-import goodtables as gt
+import pandas as pd
+from tbsdq import data_quality as dq
 
 app = Flask(__name__)
 api = Api(app)
@@ -26,54 +25,39 @@ user_submission = {
 parser = reqparse.RequestParser()
 
 def data_quality_validation(form_object):
-    readability_score = textstat.flesch_kincaid_grade(form_object['description'])
-    valid_readability = True if readability_score <= 8 else False
+    single_record = {
+        'description_en': form_object['description'],
+        'description_fr': form_object['description'],
+        'owner_org': form_object['department'],
+        'maintainer_email': form_object['maintainer_email'],
+        'url': form_object['file_link'],
+        'source_format': form_object['file_type']
+    }
+    df_quality = dq.dq_validate(single_record, 'single')
+    gt_report = df_quality['goodtables_report'][0]
+
     other_dept_using_tbs_open = False
-    is_email_valid = False
-    
-    if form_object['department'].startswith("Treasury Board"):
-        is_email_valid = validate_email(form_object['maintainer_email'])
-    else:
-        if form_object['maintainer_email'].split('@')[-1].lower() == "tbs-sct.gc.ca":
-            is_email_valid = False
-            other_dept_using_tbs_open = True
-        else:
-            is_email_valid = validate_email(form_object['maintainer_email'])
-
-    user_file_type = form_object['file_type'].lower();
-
-    gt_report = gt.validate(form_object['file_link'])
-
-    try:
-        link_return_status = int(gt_report['tables'][0]['errors'][0]['message'][:3])
-    except:
-        link_return_status = 200
+    if form_object['department'].startswith("Treasury Board") and form_object['maintainer_email'].split('@')[-1].lower() == "tbs-sct.gc.ca":
+        other_dept_using_tbs_open = True
 
     link_encoding = gt_report['tables'][0]['encoding']
     link_file_validity = gt_report['tables'][0]['valid']
     link_error_count = gt_report['tables'][0]['error-count']
     link_file_type = gt_report['tables'][0]['format'].lower()
     link_error_details = gt_report['tables'][0]['errors']
-    valid_url = True if int(link_return_status) < 400 else False
-    valid_encoding = True if link_encoding == 'utf-8' else False
-    valid_format = link_file_validity
-    url_type = form_object['file_link'].split('.')[-1].lower()
-
-    valid_file_type = True if url_type == user_file_type or user_file_type == link_file_type else False
 
     return {
-        'readability_score': readability_score,
-        'valid_readability': valid_readability,
-        'is_email_valid': is_email_valid,
+        'readability_score': df_quality['readability_grade_en'][0],
+        'valid_readability': bool(df_quality['valid_readability_en'][0]),
+        'is_email_valid': bool(df_quality['valid_maintainer_email'][0]),
         'other_dept_using_tbs_open': other_dept_using_tbs_open,
-        'link_http_status': link_return_status,
-        'valid_url': valid_url,
+        'valid_url': bool(df_quality['valid_url'][0]),
         'link_encoding': link_encoding,
-        'valid_encoding': valid_encoding,
+        'valid_encoding': bool(df_quality['valid_encoding'][0]),
         'link_file_type': link_file_type,
-        'user_file_type': user_file_type,
-        'valid_file_type': valid_file_type,
-        'valid_format': valid_format,
+        'user_file_type': form_object['file_type'].lower(),
+        'valid_file_type': bool(df_quality['valid_file_type'][0]),
+        'valid_format': bool(df_quality['valid_format'][0]),
         'error_count': link_error_count,
         'error_details': link_error_details,
     }
