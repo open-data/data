@@ -69,27 +69,27 @@
 
             <div class="dq-results">
                 <h3>Results</h3>
-                <span class="fa-stack fa-2x" title="Connected">
+                <span class="fa-stack fa-2x" data-toggle="tooltip" data-placement="top" title="Connected: Valid maintainer email supplied for the owning department">
                     <i id="connected-icon-bg" class="fas fa-certificate fa-stack-2x dq-icon-no-point-bg"></i>
                     <i id="connected-icon" class="fas fa-at fa-stack-1x dq-icon-black"></i>
                   </span>
-                  <span class="fa-stack fa-2x" title="Communicator">
+                  <span class="fa-stack fa-2x" data-toggle="tooltip" data-placement="top" title="Communicator: Description is at appropriate readability level">
                     <i id="communicator-icon-bg" class="fas fa-certificate fa-stack-2x dq-icon-no-point-bg"></i>
                     <i id="communicator-icon" class="fas fa-bullhorn fa-stack-1x dq-icon-black"></i>
                   </span>
-                  <span class="fa-stack fa-2x" title="Participation">
+                  <span class="fa-stack fa-2x" data-toggle="tooltip" data-placement="top" title="Participation: The link to the dataset is valid (i.e. returns a valid status not 404, 500, 503, etc.)">
                     <i id="participation-icon-bg" class="fas fa-certificate fa-stack-2x dq-icon-no-point-bg"></i>
                     <i id="participation-icon" class="fas fa-award fa-stack-1x dq-icon-black"></i>
                   </span>
-                  <span class="fa-stack fa-2x" title="Tidy">
+                  <span class="fa-stack fa-2x" data-toggle="tooltip" data-placement="top" title="Tidy: Dataset is successfully validated via a linting tool and returns no errors">
                     <i id="tidy-icon-bg" class="fas fa-certificate fa-stack-2x dq-icon-no-point-bg"></i>
                     <i id="tidy-icon" class="fas fa-clipboard-check fa-stack-1x dq-icon-black"></i>
                   </span>
-                  <span class="fa-stack fa-2x" title="Honest">
+                  <span class="fa-stack fa-2x" data-toggle="tooltip" data-placement="top" title="Honest: The supplied data file matches the indicated file type">
                     <i id="honest-icon-bg" class="fas fa-certificate fa-stack-2x dq-icon-no-point-bg"></i>
                     <i id="honest-icon" class="fas fa-balance-scale fa-stack-1x dq-icon-black"></i>
                   </span>
-                  <span class="fa-stack fa-2x" title="International">
+                  <span class="fa-stack fa-2x" data-toggle="tooltip" data-placement="top" title="International: Data is supplied with UTF-8 character encoding">
                     <i id="international-icon-bg" class="fas fa-certificate fa-stack-2x dq-icon-no-point-bg"></i>
                     <i id="international-icon" class="fas fa-globe fa-stack-1x dq-icon-black"></i>
                   </span>
@@ -113,6 +113,10 @@
 
     <script>
         $(document).ready(function() {
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            });
+
             $("#publish-form").submit(function(e) {
                 e.preventDefault();
                 var form = $(this);
