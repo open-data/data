@@ -48,23 +48,23 @@
         <form id="publish-form">
             <div class="form-group" id="readability-group">
                 <label for="readabilityInput">Description</label>
-                <input type="text" class="form-control" name="description" id="readabilityInput" placeholder="Enter a description">
+                <input type="text" class="form-control" name="description" id="readabilityInput" placeholder="Enter a description" value="{{ data.description }}">
             </div>
             <div class="form-group" id="department-group">
                 <label for="departmentInput">Department</label>
-                <input type="text" class="form-control" name="department" id="departmentInput" placeholder="Enter a department">
+                <input type="text" class="form-control" name="department" id="departmentInput" placeholder="Enter a department" value="{{ data.department }}">
             </div>
             <div class="form-group" id="email-group">
                 <label for="emailInput">Email</label>
-                <input type="email" class="form-control" name="maintainer_email" id="emailInput" placeholder="Enter an email address">
+                <input type="email" class="form-control" name="maintainer_email" id="emailInput" placeholder="Enter an email address" value="{{ data.email }}">
             </div>
             <div class="form-group" id="file-type-group">
                 <label for="fileTypeInput">File Type</label>
-                <input type="text" class="form-control" name="file_type" id="fileTypeInput" placeholder="CSV | XLS | JSON | XML | TXT | ...">
+                <input type="text" class="form-control" name="file_type" id="fileTypeInput" placeholder="CSV | XLS | JSON | XML | TXT | ..." value="{{ data.file_type }}">
             </div>
             <div class="form-group" id="file-group">
                 <label for="fileLinkInput">File Link</label>
-                <input type="link" class="form-control" name="file_link" id="fileLinkInput" placeholder="https://path.to.your/file.csv">
+                <input type="link" class="form-control" name="file_link" id="fileLinkInput" placeholder="https://path.to.your/file.csv" value="{{ data.file_link }}">
             </div>
 
             <div class="dq-results">
@@ -120,7 +120,7 @@
             $("#publish-form").submit(function(e) {
                 e.preventDefault();
                 var form = $(this);
-                var url = "/samplevalidate/"
+                var url = "/validate/"
 
                 $.ajax({
                     type: "POST",
