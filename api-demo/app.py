@@ -1,8 +1,17 @@
+import importlib
 from flask import Flask, render_template, request
 from flask_restful import Resource, Api, reqparse
 import pandas as pd
 from tbsdq import data_quality as dq
 
+#Resource = importlib.__import__("flask_restful.resource")
+#Api = importlib.__import__("flask_restful.Api")
+#reqparse = importlib.__import__("flask_restful.reqparse")
+
+
+#Resource = importlib.__import__("Flask-RESTful.Resource")
+#Api = importlib.__import__("Flask-RESTful.Api")
+#reqparse = importlib.__import__("Flask-RESTful.reqparse")
 app = Flask(__name__)
 api = Api(app)
 

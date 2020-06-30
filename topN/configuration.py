@@ -25,5 +25,5 @@ openness_file = dqconfig.temp_data_folder + 'openness-details.csv'
 user_ratings_file = 'https://open.canada.ca/sites/default/files/dataset-ratings.csv'
 
 # Processed files
-topN_size = 3
+topN_size = 1
 topN_file = 'TopN_NonSpatialDatasets.csv'
