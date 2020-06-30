@@ -8,12 +8,12 @@ from tbsdq import configuration as dqconfig
 def get_top_N_non_spatial():
     try:
         df = pd.read_csv(topnconfig.topN_file, encoding=dqconfig.encoding_type)
-        return df['id']
+        return df[['id','openness_rating','user_rating_score','user_rating_count']]
     except:
         print('Top N Dataset not found.  Attempting to build it now.')
         try:
             topnbuild.build_top_N_dataset()
             df = pd.read_csv(topnconfig.topN_file, encoding=dqconfig.encoding_type)
-            return df['id']
+            return df[['id','openness_rating','user_rating_score','user_rating_count']]
         except:
             raise

@@ -1,4 +1,4 @@
-git+git://github.com/msisktbs/tbsdq-module
+git+git://github.com/open-data/tbsdq-module
 pandas==1.0.3
 aniso8601==8.0.0
 attrs==19.3.0

@@ -1,4 +1,4 @@
-git+git://github.com/msisktbs/tbsdq-module
+git+git://github.com/open-data/tbsdq-module
 attrs==19.3.0
 boto3==1.12.41
 botocore==1.15.41

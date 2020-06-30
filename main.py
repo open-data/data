@@ -66,7 +66,7 @@ if validation_mode == 'topN':
         df_topN = topnutils.get_top_N_non_spatial()
     except:
         sys.exit('>> An error occured trying to read or build the Top N dataset.  Exiting')
-
+    print(df_topN)
     df_quality = dq.run_topN_validation(df_topN, topnconfig.catalogue_zip_file, topnconfig.catalogue_file)
 
     # Write the final dataframe to CSV
